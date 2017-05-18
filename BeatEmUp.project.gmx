@@ -4,7 +4,11 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\SND_BasicPunch1</sound>
+    <sound>sound\SND_MissedPunch</sound>
+    <sound>sound\SND_StrongPunch1</sound>
+  </sounds>
   <sprites name="sprites">
     <sprites name="EnemySprites">
       <sprite>sprites\SPR_EnemyIdle</sprite>
@@ -19,6 +23,7 @@
       <sprite>sprites\SPR_PlayerHit</sprite>
     </sprites>
     <sprite>sprites\SPR_BasicPunch_Hitbox</sprite>
+    <sprite>sprites\SPR_StrongPunch_Hitbox</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -27,6 +32,7 @@
     <object>objects\OBJ_Enemy</object>
     <object>objects\ATK</object>
     <object>objects\ATK_BasicPunch</object>
+    <object>objects\ATK_StrongPunch</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
