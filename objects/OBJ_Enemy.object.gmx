@@ -45,6 +45,9 @@ SightRange = 350;
 
 Aggressiveness = 0;
 AttackRange = sprite_width/2+OBJ_Player.sprite_width/2;
+
+TargetX = x;
+TargetY = y;
 </string>
           </argument>
         </arguments>
@@ -101,22 +104,23 @@ switch (State)
     
     case "PositionFront":
         SideMod = 1;
-        //Find Target position
-        //Move there
+        event_user(4);//Find Target position
+        event_user(5);//Move there
         event_user(3);//Animate the Enemy
         event_user(1)//Check Attack Chances Event
         break;
     
     case "PositionBehind":
     SideMod = -1;
-        //Find Target position
-        //Move there
+        event_user(4);//Find Target position
+        event_user(5);//Move there
         event_user(3);//Animate the Enemy
         event_user(1)//Check Attack Chances Event
         break;
     
     case "Hit":
         event_user(3); // Animate the enemy
+        speed = 0;
         break;
 }
 
@@ -126,6 +130,67 @@ if(OnGround == true)
     GroundY = y;
 }
 depth = -1*GroundY;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="15">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Move Event
+
+if(point_distance(x,y,TargetX,TargetY) &gt;= Speed)
+{
+    move_towards_point(TargetX,TargetY,Speed);
+}
+else
+{
+    speed = 0;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="14">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///FindTarget
+
+if(point_distance(TargetX,TargetY,OBJ_Player.x,OBJ_Player.y) &gt; AttackRange || point_distance(TargetX,TargetY,OBJ_Player.x,OBJ_Player.y) &lt; 50 || abs(TargetY-OBJ_Player.y) &gt; LayerSize || sign(TargetX-OBJ_Player.x) != sign(SideMod))
+{
+    TargetX = random_range(OBJ_Player.x+60*SideMod, OBJ_Player.x+90*SideMod);
+    TargetY = random_range(OBJ_Player.y-10, OBJ_Player.y+10);
+}
 </string>
           </argument>
         </arguments>
@@ -156,7 +221,21 @@ switch(State)
         break;
     case "PositionFront":
     case "PositionBehind":
+        if(point_distance(x,y,TargetX,TargetY) &gt; 50)
+        {
+        image_xscale = sign(TargetX-x);
+        }
+        else
+        {
+        image_xscale = sign(OBJ_Player.x-TargetX);
+        }
+         if(speed != 0){
+        sprite_index = SPR_EnemyWalking;
+        }
+        else
+        {
         sprite_index = SPR_EnemyIdle;
+        }
         break;
     case "Hit":
         sprite_index = SPR_EnemyHit;
