@@ -10,10 +10,13 @@
     <sound>sound\SND_StrongPunch1</sound>
   </sounds>
   <sprites name="sprites">
+    <sprite>sprites\SPR_BattleRegion</sprite>
     <sprites name="EnemySprites">
       <sprite>sprites\SPR_EnemyIdle</sprite>
       <sprite>sprites\SPR_EnemyWalking</sprite>
       <sprite>sprites\SPR_EnemyHit</sprite>
+      <sprite>sprites\SPR_EnemyBasicPunch</sprite>
+      <sprite>sprites\SPR_EnemyStrongPunch</sprite>
     </sprites>
     <sprites name="PlayerSprites">
       <sprite>sprites\SPR_PlayerIdle</sprite>
@@ -24,6 +27,7 @@
     </sprites>
     <sprite>sprites\SPR_BasicPunch_Hitbox</sprite>
     <sprite>sprites\SPR_StrongPunch_Hitbox</sprite>
+    <sprite>sprites\SPR_Camera</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -33,6 +37,8 @@
     <object>objects\ATK</object>
     <object>objects\ATK_BasicPunch</object>
     <object>objects\ATK_StrongPunch</object>
+    <object>objects\OBJ_Camera</object>
+    <object>objects\OBJ_BattleRegion</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

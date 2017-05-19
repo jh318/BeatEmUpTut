@@ -40,6 +40,8 @@ OnGround = true;
 GroundY = y;
 
 image_speed = .75;
+
+MyCamera = instance_create(x,y,OBJ_Camera);
 </string>
           </argument>
         </arguments>
@@ -62,7 +64,9 @@ image_speed = .75;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(CurrentHP &gt; 0)
+            <string>var MyBR = instance_nearest(x,y,OBJ_BattleRegion);
+
+if(CurrentHP &gt; 0)
 {
     //Checks if either the A or D buttons are pressed to make the player move Left or Right.
     XSpeed = 0;
@@ -89,6 +93,19 @@ image_speed = .75;
       
     if(IsAttacking == false &amp;&amp; IsHit = false)
     {
+        if(MyBR.IsActive == true)
+        {
+            if(point_in_rectangle(x+XSpeed*SpeedMod, y, MyBR.LeftEdge+35, MyBR.TopEdge, MyBR.RightEdge-35, MyBR.BottomEdge)==false ||  place_free(x+XSpeed*SpeedMod, y)==false)
+            {
+                XSpeed = 0;
+            }
+            if(point_in_rectangle(x, y+YSpeed*SpeedMod, MyBR.LeftEdge+35, MyBR.TopEdge, MyBR.RightEdge-35, MyBR.BottomEdge)==false || place_free(x, y+YSpeed*SpeedMod)==false)
+            {
+                YSpeed = 0;
+            }
+        }    
+    
+    
         if(OnGround == true)
         {
             if(XSpeed != 0 &amp;&amp; YSpeed != 0)
