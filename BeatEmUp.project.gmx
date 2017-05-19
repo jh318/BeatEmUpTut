@@ -24,6 +24,7 @@
       <sprite>sprites\SPR_PlayerBasicPunch</sprite>
       <sprite>sprites\SPR_PlayerStrongPunch</sprite>
       <sprite>sprites\SPR_PlayerHit</sprite>
+      <sprite>sprites\SPR_PlayerDead</sprite>
     </sprites>
     <sprite>sprites\SPR_BasicPunch_Hitbox</sprite>
     <sprite>sprites\SPR_StrongPunch_Hitbox</sprite>

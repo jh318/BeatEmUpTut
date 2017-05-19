@@ -89,7 +89,7 @@ Hit = false;
 &lt;= LayerSize &amp;&amp; Owner == "Player")
 {
     other.CurrentHP -= Damage;
-    other.IsHit = true;
+    other.State = "Hit";
     other.arlarm[0] = StunLength;
 }
 
