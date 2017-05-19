@@ -118,17 +118,16 @@ Hit = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(image_index == DMGFrame &amp;&amp; abs(depth - other.depth) &lt;= LayerSize &amp;&amp; abs(y - other.y) &lt;= LayerSize &amp;&amp; Owner == "Enemy")
-{
+            <string>if(image_index == DMGFrame &amp;&amp; abs(depth - other.depth) &lt;= LayerSize &amp;&amp; abs(y - other.y) &lt;= LayerSize &amp;&amp; Owner == "Enemy"){
+    
     other.CurrentHP -= Damage;
     other.IsHit = true;
     other.alarm[3] = StunLength;
     
     audio_play_sound(HitSound,10,false);
-    
-    Hit = true;
-}
 
+    Hit = true;    
+}
 </string>
           </argument>
         </arguments>
