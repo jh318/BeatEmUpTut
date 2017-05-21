@@ -53,6 +53,33 @@ TargetY = y;
         </arguments>
       </action>
     </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>var MyPosition = ds_list_find_index(OBJ_Player.EnemyList, id);
+ 
+if(MyPosition != noone){
+    ds_list_delete(OBJ_Player.EnemyList, MyPosition);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="2" enumb="0">
       <action>
         <libid>1</libid>
@@ -122,6 +149,9 @@ switch (State)
         event_user(3); // Animate the enemy
         speed = 0;
         break;
+    case "Queuing":
+        event_user(3);
+        break;
 }
 
 
@@ -161,6 +191,12 @@ if(point_distance(x,y,TargetX,TargetY) &gt;= Speed)
 else
 {
     speed = 0;
+}
+
+if(point_distance(x,y,TargetX,TargetY) &lt; 200 &amp;&amp; ds_list_size(OBJ_Player.EnemyList) &lt; 2 &amp;&amp; ds_list_find_index(OBJ_Player.EnemyList,id) == -1){
+     
+    ds_list_add(OBJ_Player.EnemyList, id);
+     
 }
 </string>
           </argument>
@@ -240,7 +276,25 @@ switch(State)
     case "Hit":
         sprite_index = SPR_EnemyHit;
         break;
+    case "Queueing":
+        if(point_distance(x,y,TargetX,TargetY) &gt; 150){
+        image_xscale = sign(TargetX-x);
+        }
+        else
+        {
+        image_xscale = sign(OBJ_Player.x-TargetX);
+        }
+     
+        if(speed != 0){
+        sprite_index = SPR_EnemyWalking;
+        }
+        else
+        {
+        sprite_index = SPR_EnemyIdle;
+     }
+    break;
 }
+
 </string>
           </argument>
         </arguments>
@@ -367,6 +421,29 @@ switch(State)
             }
         }
         break;
+        
+    case "PositionFront":
+    case "PositionBehind":
+        if(ds_list_size(OBJ_Player.EnemyList) &gt;= 2 &amp;&amp; ds_list_find_index(OBJ_Player.EnemyList,id) == -1)
+        {
+            State = "Queueing";
+            speed = 0;
+        }
+        break;
+        
+    case "Queueing":
+        if(ds_list_size(OBJ_Player.EnemyList) &lt; 2)
+        {
+            ds_list_add(OBJ_Player.EnemyList, id);
+            if(x &lt; OBJ_Player.x){
+                State = "PositionBehind";
+            }
+            else
+            {
+                State = "PositionFront";
+            }
+        }
+         break;
 }
 </string>
           </argument>
