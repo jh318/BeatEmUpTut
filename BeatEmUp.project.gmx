@@ -8,6 +8,8 @@
     <sound>sound\SND_BasicPunch1</sound>
     <sound>sound\SND_MissedPunch</sound>
     <sound>sound\SND_StrongPunch1</sound>
+    <sound>sound\SND_Uppercut</sound>
+    <sound>sound\SND_TriplePunch</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\SPR_BattleRegion</sprite>
@@ -29,6 +31,10 @@
     <sprite>sprites\SPR_BasicPunch_Hitbox</sprite>
     <sprite>sprites\SPR_StrongPunch_Hitbox</sprite>
     <sprite>sprites\SPR_Camera</sprite>
+    <sprite>sprites\SPR_PlayerUppercut</sprite>
+    <sprite>sprites\SPR_PlayerUppercut_Hitbox</sprite>
+    <sprite>sprites\SPR_PlayerTriplePunch</sprite>
+    <sprite>sprites\sprite18</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -40,6 +46,8 @@
     <object>objects\ATK_StrongPunch</object>
     <object>objects\OBJ_Camera</object>
     <object>objects\OBJ_BattleRegion</object>
+    <object>objects\ATK_Uppercut</object>
+    <object>objects\ATK_TriplePunch</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

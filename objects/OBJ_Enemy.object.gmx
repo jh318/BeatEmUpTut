@@ -255,6 +255,7 @@ switch(State)
     case "Idle":
         sprite_index = SPR_EnemyIdle;
         break;
+        
     case "PositionFront":
     case "PositionBehind":
         if(point_distance(x,y,TargetX,TargetY) &gt; 50)
@@ -273,6 +274,7 @@ switch(State)
         sprite_index = SPR_EnemyIdle;
         }
         break;
+        
     case "Hit":
         sprite_index = SPR_EnemyHit;
         break;

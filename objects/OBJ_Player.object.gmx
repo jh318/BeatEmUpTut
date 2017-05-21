@@ -44,6 +44,8 @@ image_speed = .75;
 MyCamera = instance_create(x,y,OBJ_Camera);
 
 EnemyList = ds_list_create();
+
+CommandList = ds_list_create();
 </string>
           </argument>
         </arguments>
@@ -90,6 +92,29 @@ EnemyList = ds_list_create();
           <argument>
             <kind>1</kind>
             <string>room_restart();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>ds_list_clear(CommandList);
 </string>
           </argument>
         </arguments>
@@ -235,10 +260,15 @@ if(IsHit == false &amp;&amp; CurrentHP &gt; 0){
     if(AttackType == "Basic Punch"){
         sprite_index = SPR_PlayerBasicPunch;
         MyAttack = instance_create(x,y,ATK_BasicPunch);
-    } else if(AttackType == "Strong Punch")
-    {
+    } else if(AttackType == "Strong Punch"){
         sprite_index = SPR_PlayerStrongPunch;
         MyAttack = instance_create(x,y,ATK_StrongPunch);
+    } else if(AttackType == "Uppercut"){
+        sprite_index = SPR_PlayerUppercut;
+        MyAttack = instance_create(x,y,ATK_Uppercut);
+    } else if(AttackType == "Triple Punch"){
+        sprite_index = SPR_PlayerTriplePunch;
+        MyAttack = instance_create(x,y,ATK_TriplePunch);
     }
 }
  
@@ -362,15 +392,36 @@ draw_self();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>AttackType = "";
+            <string>ButtonCombo = "";
+
+AttackType = "";
  
 if(keyboard_check(vk_numpad4) || keyboard_check(ord('J')) || keyboard_check(vk_left)){
-    AttackType = "Basic Punch";
+    ButtonCombo += "+LAtk";
 }
+
 if(keyboard_check(vk_numpad8) || keyboard_check(ord('I')) || keyboard_check(vk_up))
 {
-    AttackType = "Strong Punch";
+    ButtonCombo += "+SAtk";
 }
+
+ds_list_add(CommandList, string_delete(ButtonCombo,1,1));
+alarm[0] = 10;
+
+while(ds_list_size(CommandList) &gt; 7){
+    ds_list_delete(CommandList, 0);
+}
+
+if(ds_list_find_value(CommandList,ds_list_size(CommandList)-1) == "LAtk" &amp;&amp; ds_list_find_value(CommandList,ds_list_size(CommandList)-2) == "LAtk" &amp;&amp; ds_list_find_value(CommandList,ds_list_size(CommandList)-3) == "LAtk"){
+    AttackType = "Triple Punch";
+}else if(ds_list_find_value(CommandList,ds_list_size(CommandList)-1)=="LAtk"){
+    AttackType = "Basic Punch";
+} else if(ds_list_find_value(CommandList,ds_list_size(CommandList)-1) == "SAtk"){
+    AttackType = "Strong Punch";
+} else if(ds_list_find_value(CommandList,ds_list_size(CommandList)-1) == "LAtk+SAtk"){
+    AttackType = "Uppercut";
+}
+
 if(OnGround == true){
     event_user(2);
 }
